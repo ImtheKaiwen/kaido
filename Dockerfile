@@ -53,7 +53,7 @@ COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
 WORKDIR /app/backend
 
-# Run migrations then start the server
-CMD npx prisma migrate deploy && node dist/index.js
+# Run schema push to sync database, then start the server
+CMD npx prisma db push --accept-data-loss && node dist/index.js
 
 EXPOSE 5000
