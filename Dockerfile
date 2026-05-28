@@ -17,6 +17,9 @@ RUN npm run build
 # ─────────────────────────────────────────────
 FROM node:20-alpine AS backend-builder
 
+# Prisma requires openssl on Alpine
+RUN apk add --update --no-cache openssl
+
 WORKDIR /app/backend
 
 COPY backend/package*.json ./
@@ -31,6 +34,9 @@ RUN npm run build
 # Stage 3: Production Image
 # ─────────────────────────────────────────────
 FROM node:20-alpine AS production
+
+# Prisma requires openssl on Alpine
+RUN apk add --update --no-cache openssl
 
 WORKDIR /app
 
