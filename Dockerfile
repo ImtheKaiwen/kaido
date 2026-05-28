@@ -49,9 +49,7 @@ COPY --from=backend-builder /app/backend/prisma ./backend/prisma
 # Copy built frontend into correct relative path backend expects
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
-# Create volume mount point for SQLite database persistence
-RUN mkdir -p /app/backend/prisma && \
-    chown -R node:node /app
+# No local database volume needed as we are using a remote PostgreSQL DB
 
 WORKDIR /app/backend
 
